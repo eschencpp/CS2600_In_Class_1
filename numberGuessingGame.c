@@ -20,18 +20,25 @@ If input == random number then user wins and returns to menu
 If input != random number then tell if too high or low and prompt for guess
 If q input then game should end and return to menu  */
 void numberGame(){
-    int inputGuess;
+    char inputGuess[20];
     int inputInteger;
+    // Ask for user input
     printf("Enter your guess from 1 - %d: ", maximumValue);
-    scanf("%d",&inputGuess);
-
-    if(inputGuess == 'q'){
-        printf("The game will return to the menu. \n" );
-        optionsMenu();
+    scanf("%s",&inputGuess);
+    inputInteger = atoi(inputGuess);
+    // Input validation for characters
+    if(!(isdigit(inputGuess[0]))){
+        if(inputGuess[0] == 'q'){
+            printf("The game will return to the menu. \n" );
+            optionsMenu();
+        } else{
+            printf("Not a valid entry. Please enter q to exit or a number to continue guessing. \n");
+            numberGame();
+        }
     }
     // Setting conditions for if the guess is <, >, or equal to randomNumber
-    if(inputGuess < randomNumber){
-        if(inputGuess < 1){
+    if(inputInteger < randomNumber){
+        if(inputInteger < 1){
             printf("Number is out of range. Try again. \n");
             numberGame();
         } else{
@@ -39,8 +46,8 @@ void numberGame(){
         numberGame();
         }
     }
-    if(inputGuess > randomNumber){
-        if(inputGuess > maximumValue){
+    if(inputInteger > randomNumber){
+        if(inputInteger > maximumValue){
         printf("Number is out of range. Try again. \n");
         numberGame();
     } else{
@@ -48,12 +55,13 @@ void numberGame(){
         numberGame();
         }
     }
-    if(inputGuess == randomNumber){
+    if(inputInteger == randomNumber){
     printf("Congratulations you won! The game will now return back to the menu. \n");
     optionsMenu();
     }
 
-    if(inputGuess > maximumValue){
+    // Input validation for maximum value
+    if(inputInteger > maximumValue){
         printf("Number is out of range. Try again. \n");
         numberGame();
     }
@@ -75,6 +83,8 @@ void exitGame(){
     printf("Thank you for playing the game! The game will now exit. \n");
 }
 
+
+// Helper method for options menu
 void chooseOption(){
     switch(option){
         case 1 :
