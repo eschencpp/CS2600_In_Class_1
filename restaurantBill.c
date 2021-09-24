@@ -13,7 +13,7 @@ float tipTotal;
 float totalBill;
 
 //Randomly picks 1 meal and displays meal and cost using rand()
-int pickMeal(){
+void pickMeal(){
     srand((unsigned)time(NULL));
     randomMeal= rand() % 4;
     switch(randomMeal){
@@ -38,7 +38,7 @@ int pickMeal(){
     printf("Your meal is %s and the cost is %.2f \n" , mealName, costOfMeal);
 }
 //Accept user input for tax %, calculates, and displays tax amount
-int tax(){
+void tax(){
     printf( "Enter the tax percentage from 0-100%: ");
     scanf("%f",&taxPercent);
     // Input validation to ensure tax percent is not negative.
@@ -52,7 +52,7 @@ int tax(){
     printf("The tax total is: $%.2f \n", taxTotal);
 }
 //Accept user input for tip %, calculates, and displays tip amount
-int tip(){
+void tip(){
     printf("Enter the tip percentage: ");
     scanf("%f",&tipPercent);
     // Input validation to ensure tip percent is not negative.
@@ -66,7 +66,7 @@ int tip(){
     printf("The tip total is: $%.2f \n", tipTotal);
 }
 //Adds meal cost, tax, and tip and displays total bill
-int finalBill(){
+void finalBill(){
     totalBill = costOfMeal + taxTotal + tipTotal;
     printf("The total bill is $%.2f", totalBill);
 }
@@ -76,4 +76,5 @@ int main(){
     tax();
     tip();
     finalBill();
+    return 0;
 }
