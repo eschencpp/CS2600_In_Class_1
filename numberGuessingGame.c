@@ -31,6 +31,7 @@ void numberGame(){
         if(inputGuess[0] == 'q'){
             printf("The game will return to the menu. \n" );
             optionsMenu();
+            return;
         } else{
             printf("Not a valid entry. Please enter q to exit or a number to continue guessing. \n");
             numberGame();
