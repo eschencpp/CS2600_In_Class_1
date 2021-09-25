@@ -6,7 +6,8 @@
 int option;
 int maximumValue = 10;
 int randomNumber;
-int optionsMenu();
+void optionsMenu();
+void fileWrite();
 
 //Random number generator
 int randomNumberG(){
@@ -31,6 +32,7 @@ void numberGame(){
         if(inputGuess[0] == 'q'){
             printf("The game will return to the menu. \n" );
             optionsMenu();
+            return;
         } else{
             printf("Not a valid entry. Please enter q to exit or a number to continue guessing. \n");
             numberGame();
@@ -75,12 +77,14 @@ void changeMaxNumber(){
         printf("Maximum value out of range. Please try again \n");
         changeMaxNumber();
     }
+    fileWrite();
     optionsMenu();
 }
 
 //Option 3: Thank user for playing and end game.
 void exitGame(){
     printf("Thank you for playing the game! The game will now exit. \n");
+    exit;
 }
 
 
@@ -101,18 +105,39 @@ void chooseOption(){
 }
 
 //Ask for user input 1 , 2 , or 3
-int optionsMenu(){
+void optionsMenu(){
     printf("Choose an option: 1, 2, or 3: ");
     scanf("%d",&option);
-    while((option < 1) | (option > 3)){
-        printf("Error input out of range. Please try again: \n");
+    if((option < 1) | (option > 3)){
         optionsMenu();
+        return;
     }
     chooseOption();
-    return option;
+    return;
+}
+
+void fileWrite(){
+    FILE *f = fopen("file.txt", "w");
+    if (f == NULL){
+    printf("Error opening file!\n");
+    exit(1);
+    }
+    fprintf(f, "%d", maximumValue);
+    fclose(f);
+}
+
+void readMaxValue(){
+    FILE *f = fopen("file.txt", "r");
+    if (f == NULL){
+    printf("Error opening file!\n");
+    exit(1);
+    }
+    fscanf(f, "%d", &maximumValue);
+    fclose(f);
 }
 
 int main(){
+    readMaxValue();
     optionsMenu();
     return 0;
 }
